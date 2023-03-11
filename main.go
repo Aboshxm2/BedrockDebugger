@@ -35,8 +35,8 @@ func main() {
 	auth.TokenSource()
 
 	// Initialization language used to translate (TextTypeTranslation)[https://github.com/Sandertv/gophertunnel/blob/master/minecraft/protocol/packet/text.go#L10].
-	// You can get this file somewhere from minecraft files (idk where) or from https://github.com/pmmp/Language.
-	translate.LoadLang("eng.ini")
+	// You can get this file from https://github.com/Mojang/bedrock-samples/blob/main/resource_pack/texts/en_US.lang.
+	translate.LoadLang("en_US.lang")
 
 	commands = append(commands, command.Help{
 		Commands: commands,

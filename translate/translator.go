@@ -1,12 +1,12 @@
 package translate
 
 import (
-	"gopkg.in/ini.v1"
-	"strconv"
 	"strings"
+
+	"gopkg.in/ini.v1"
 )
 
-var messages *ini.Section
+var messages = map[string]string{}
 
 func LoadLang(file string) {
 	load, err := ini.Load(file)
@@ -14,17 +14,19 @@ func LoadLang(file string) {
 		return
 	}
 
-	messages = load.Section("")
+	for _, key := range load.Section("").Keys() {
+		messages[key.Name()] = key.String()
+	}
 }
 
 func Translate(key string, params []string) string {
 	key = key[1:]
 
-	if messages.HasKey(key) {
-		msg := messages.Key(key).String()
+	if _, ok := messages[key]; ok {
+		msg := messages[key]
 
-		for i, v := range params {
-			msg = strings.ReplaceAll(msg, "{%"+strconv.Itoa(i)+"}", v)
+		for _, v := range params {
+			msg = strings.Replace(msg, "%s", v, 1)
 		}
 
 		return msg
