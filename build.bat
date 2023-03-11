@@ -5,6 +5,11 @@ set GOARCH=amd64
 
 go build -o build/BedrockDebugger-linux-amd64
 
+set GOOS=linux
+set GOARCH=arm64
+
+go build -o build/BedrockDebugger-linux-arm64
+
 set GOOS=darwin
 set GOARCH=amd64
 
