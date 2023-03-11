@@ -14,8 +14,15 @@ func GetSession(sId string) (s *Session, ok bool) {
 	return
 }
 
-func GetSessions() map[string]*Session {
-	return sessions
+func GetSessions() (new []*Session) {
+	m.Lock()
+	defer m.Unlock()
+
+	for _, v := range sessions {
+		new = append(new, v)
+	}
+
+	return new
 }
 
 func AddSession(sId string, s *Session) {
